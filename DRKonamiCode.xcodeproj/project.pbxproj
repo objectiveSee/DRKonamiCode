@@ -1,0 +1,272 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		304949CC1579A63C0045FB4B /* DRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 304949C71579A63C0045FB4B /* DRAppDelegate.m */; };
+		304949CD1579A63C0045FB4B /* DRKonamiGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 304949C91579A63C0045FB4B /* DRKonamiGestureRecognizer.m */; };
+		304949CE1579A63C0045FB4B /* DRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 304949CB1579A63C0045FB4B /* DRViewController.m */; };
+		304949D21579A6670045FB4B /* DRViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 304949D11579A6670045FB4B /* DRViewController.xib */; };
+		304949D51579A6910045FB4B /* nes.png in Resources */ = {isa = PBXBuildFile; fileRef = 304949D31579A6910045FB4B /* nes.png */; };
+		304949D61579A6910045FB4B /* nes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 304949D41579A6910045FB4B /* nes@2x.png */; };
+		304949D81579A6B60045FB4B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 304949D71579A6B60045FB4B /* main.m */; };
+		3098B2CD1504515300F743BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3098B2CC1504515300F743BD /* UIKit.framework */; };
+		3098B2CF1504515300F743BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3098B2CE1504515300F743BD /* Foundation.framework */; };
+		3098B2D11504515300F743BD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3098B2D01504515300F743BD /* CoreGraphics.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		304949C61579A63C0045FB4B /* DRAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRAppDelegate.h; sourceTree = "<group>"; };
+		304949C71579A63C0045FB4B /* DRAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRAppDelegate.m; sourceTree = "<group>"; };
+		304949C81579A63C0045FB4B /* DRKonamiGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRKonamiGestureRecognizer.h; sourceTree = "<group>"; };
+		304949C91579A63C0045FB4B /* DRKonamiGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRKonamiGestureRecognizer.m; sourceTree = "<group>"; };
+		304949CA1579A63C0045FB4B /* DRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRViewController.h; sourceTree = "<group>"; };
+		304949CB1579A63C0045FB4B /* DRViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRViewController.m; sourceTree = "<group>"; };
+		304949D11579A6670045FB4B /* DRViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DRViewController.xib; sourceTree = "<group>"; };
+		304949D31579A6910045FB4B /* nes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nes.png; sourceTree = "<group>"; };
+		304949D41579A6910045FB4B /* nes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nes@2x.png"; sourceTree = "<group>"; };
+		304949D71579A6B60045FB4B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		304949DB1579A73A0045FB4B /* DRKonamiCode-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DRKonamiCode-Info.plist"; sourceTree = "<group>"; };
+		304949DD1579A7560045FB4B /* DRKonamiCode-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DRKonamiCode-Prefix.pch"; sourceTree = "<group>"; };
+		3098B2C81504515300F743BD /* DRKonamiCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DRKonamiCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3098B2CC1504515300F743BD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		3098B2CE1504515300F743BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3098B2D01504515300F743BD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3098B2C51504515300F743BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3098B2CD1504515300F743BD /* UIKit.framework in Frameworks */,
+				3098B2CF1504515300F743BD /* Foundation.framework in Frameworks */,
+				3098B2D11504515300F743BD /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		304949C51579A63C0045FB4B /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				304949D71579A6B60045FB4B /* main.m */,
+				304949C61579A63C0045FB4B /* DRAppDelegate.h */,
+				304949C71579A63C0045FB4B /* DRAppDelegate.m */,
+				304949C81579A63C0045FB4B /* DRKonamiGestureRecognizer.h */,
+				304949C91579A63C0045FB4B /* DRKonamiGestureRecognizer.m */,
+				304949CA1579A63C0045FB4B /* DRViewController.h */,
+				304949CB1579A63C0045FB4B /* DRViewController.m */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		304949D01579A6670045FB4B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				304949D31579A6910045FB4B /* nes.png */,
+				304949D41579A6910045FB4B /* nes@2x.png */,
+				304949D11579A6670045FB4B /* DRViewController.xib */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3098B2BD1504515200F743BD = {
+			isa = PBXGroup;
+			children = (
+				304949DD1579A7560045FB4B /* DRKonamiCode-Prefix.pch */,
+				304949DB1579A73A0045FB4B /* DRKonamiCode-Info.plist */,
+				304949C51579A63C0045FB4B /* Sources */,
+				304949D01579A6670045FB4B /* Resources */,
+				3098B2CB1504515300F743BD /* Frameworks */,
+				3098B2C91504515300F743BD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3098B2C91504515300F743BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3098B2C81504515300F743BD /* DRKonamiCode.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3098B2CB1504515300F743BD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3098B2CC1504515300F743BD /* UIKit.framework */,
+				3098B2CE1504515300F743BD /* Foundation.framework */,
+				3098B2D01504515300F743BD /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3098B2C71504515300F743BD /* DRKonamiCode */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3098B2E61504515300F743BD /* Build configuration list for PBXNativeTarget "DRKonamiCode" */;
+			buildPhases = (
+				3098B2C41504515300F743BD /* Sources */,
+				3098B2C51504515300F743BD /* Frameworks */,
+				3098B2C61504515300F743BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DRKonamiCode;
+			productName = DRKonamiCode;
+			productReference = 3098B2C81504515300F743BD /* DRKonamiCode.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3098B2BF1504515200F743BD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "CouchSurfing International";
+			};
+			buildConfigurationList = 3098B2C21504515200F743BD /* Build configuration list for PBXProject "DRKonamiCode" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 3098B2BD1504515200F743BD;
+			productRefGroup = 3098B2C91504515300F743BD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3098B2C71504515300F743BD /* DRKonamiCode */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3098B2C61504515300F743BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				304949D21579A6670045FB4B /* DRViewController.xib in Resources */,
+				304949D51579A6910045FB4B /* nes.png in Resources */,
+				304949D61579A6910045FB4B /* nes@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3098B2C41504515300F743BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				304949CC1579A63C0045FB4B /* DRAppDelegate.m in Sources */,
+				304949CD1579A63C0045FB4B /* DRKonamiGestureRecognizer.m in Sources */,
+				304949CE1579A63C0045FB4B /* DRViewController.m in Sources */,
+				304949D81579A6B60045FB4B /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		3098B2E41504515300F743BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		3098B2E51504515300F743BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3098B2E71504515300F743BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DRKonamiCode-Prefix.pch";
+				INFOPLIST_FILE = "DRKonamiCode-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		3098B2E81504515300F743BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DRKonamiCode-Prefix.pch";
+				INFOPLIST_FILE = "DRKonamiCode-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3098B2C21504515200F743BD /* Build configuration list for PBXProject "DRKonamiCode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3098B2E41504515300F743BD /* Debug */,
+				3098B2E51504515300F743BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3098B2E61504515300F743BD /* Build configuration list for PBXNativeTarget "DRKonamiCode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3098B2E71504515300F743BD /* Debug */,
+				3098B2E81504515300F743BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3098B2BF1504515200F743BD /* Project object */;
+}
