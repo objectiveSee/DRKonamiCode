@@ -10,7 +10,6 @@ Konami code gesture recognizer for iOS. The recognizer is a subclass of UIGestur
 1. Drag DRKonamiGestureRecognizer.h and DRKonamiGestureRecognizer.m into your project
 2. Add the gesture recognizer to one of your views using the following code.
 
-
 	_konamiGestureRecognizer = [[DRKonamiGestureRecognizer alloc] initWithTarget:self action:@selector(_konamiGestureRecognized:)];
 	[self.view addGestureRecognizer:self.konamiGestureRecognizer];
 
