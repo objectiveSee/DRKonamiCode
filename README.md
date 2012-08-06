@@ -3,7 +3,7 @@ DRKonamiCode
 
 Konami code gesture recognizer for iOS. The recognizer is a subclass of UIGestureRecognizer has can be used in the same way as any other recognizer. An optional feature allows you to implement a custom A+B+Enter action.
 
-[![](http://grab.by/fbfW)]
+![](http://grab.by/fbga)
 
 ### Adding Konami Code to your Project ###
 
