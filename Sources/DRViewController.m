@@ -96,25 +96,14 @@
 
     if ( gesture.state == UIGestureRecognizerStateRecognized )
     {
-        NSLog(@"Recognized!");
-
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Konami!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss",nil];
         [alert show];
         [alert release];
     }
     else if ( gesture.state == UIGestureRecognizerStateChanged )
     {
-        static int debug = 99;
-        
         DRKonamiGestureState konamiState = gesture.konamiState;
-
         NSInteger indexOfSubString = konamiState - DRKonamiGestureStateUp1 + 1;
-        
-        if ( indexOfSubString != debug )
-        {
-            debug = indexOfSubString;
-            NSLog(@"State is now %d. Index = %d", konamiState, indexOfSubString);
-        }
 
         if ( indexOfSubString > 0 )
         {

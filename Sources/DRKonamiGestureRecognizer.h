@@ -40,7 +40,7 @@ typedef enum DRKonamiGestureState
 /**
  @class DRKonamiGestureRecognizer
  @brief A custom UIGestureRecognizer which recognized the Konami Code.
- @todo How to reset the state of self.konamiState on gesture fails due to timeout? Rely on touches began?
+ @todo Reset the state of self.konamiState on gesture fails due to timeout between swipes in sequence.
  */
 @interface DRKonamiGestureRecognizer : UIGestureRecognizer
 {
