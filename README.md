@@ -23,10 +23,13 @@ Optionally, you can require the user to enter A+B+Enter in order for the gesture
 
 
 ```objective-c
-_konamiGestureRecognizer = [[DRKonamiGestureRecognizer alloc] initWithTarget:self action:@selector(_konamiGestureRecognized:)];
-[self.konamiGestureRecognizer setKonamiDelegate:self];
-[self.konamiGestureRecognizer setRequiresABEnterToUnlock:YES];
-[self.view addGestureRecognizer:self.konamiGestureRecognizer];
+- (void)addKonami
+{
+	_konamiGestureRecognizer = [[DRKonamiGestureRecognizer alloc] initWithTarget:self action:@selector(_konamiGestureRecognized:)];
+	[self.konamiGestureRecognizer setKonamiDelegate:self];
+	[self.konamiGestureRecognizer setRequiresABEnterToUnlock:YES];
+	[self.view addGestureRecognizer:self.konamiGestureRecognizer];
+}
 
 #pragma mark -
 #pragma mark DRKonamiRecognizerDelegate
