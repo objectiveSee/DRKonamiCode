@@ -3,7 +3,7 @@ DRKonamiCode
 
 ![](http://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Konami_Code.svg/300px-Konami_Code.svg.png)
 
-[Konami code](http://en.wikipedia.org/wiki/Konami_Code) gesture recognizer for iOS. The recognizer is a subclass of UIGestureRecognizer has can be used in the same way as any other recognizer. Swipe gestures correspond to the Up/Down/Left/Right parts of the sequence. An optional feature allows you to implement a custom A+B+Enter action.
+[Konami code](http://en.wikipedia.org/wiki/Konami_Code) gesture recognizer for iOS. The recognizer is a subclass of UIGestureRecognizer has can be used in the same way as any other recognizer. Swipe gestures correspond to the Up/Down/Left/Right parts of the sequence. An optional feature allows you to implement a custom B+A+Enter action.
 
 ![](http://grab.by/fbga)
 
@@ -47,4 +47,4 @@ Optionally, you can require the user to enter B+A+Enter in order for the gesture
 
 ### DRKonamiGestureProtocol ###
 
-The DRKonamiGestureProtocol protocol is required only if you are using the B+A+Enter feature. The recognizer will inform its delegate when the A+B+Enter sequence is needed and when the sequence is no longer needed (due to gesture failing or succeeding).
+The DRKonamiGestureProtocol protocol is required only if you are using the B+A+Enter feature. The recognizer will inform its delegate when the B+A+Enter sequence is needed and when the sequence is no longer needed (due to gesture failing or succeeding).
