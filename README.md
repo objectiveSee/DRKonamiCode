@@ -17,9 +17,9 @@ _konamiGestureRecognizer = [[DRKonamiGestureRecognizer alloc] initWithTarget:sel
 [self.view addGestureRecognizer:self.konamiGestureRecognizer];
 ```
 
-### A+B+Unlock ###
+### B+A+Unlock ###
 
-Optionally, you can require the user to enter A+B+Enter in order for the gesture to be recognized. You will need to implement the DRKonamiGestureProtocol which has required methods that let your UI respond to the request for the A, B, or Enter action. If you are not using the A+B+Enter feature than you do not need to set the recognizer's delegate.
+Optionally, you can require the user to enter B+A+Enter in order for the gesture to be recognized. You will need to implement the DRKonamiGestureProtocol which has required methods that let your UI respond to the request for the A, B, or Enter action. If you are not using the B+A+Enter feature than you do not need to set the recognizer's delegate.
 
 
 ```objective-c
@@ -47,4 +47,4 @@ Optionally, you can require the user to enter A+B+Enter in order for the gesture
 
 ### DRKonamiGestureProtocol ###
 
-The DRKonamiGestureProtocol protocol is required only if you are using the A+B+Enter feature. The recognizer will inform its delegate when the A+B+Enter sequence is needed and when the sequence is no longer needed (due to gesture failing or succeeding).
+The DRKonamiGestureProtocol protocol is required only if you are using the B+A+Enter feature. The recognizer will inform its delegate when the A+B+Enter sequence is needed and when the sequence is no longer needed (due to gesture failing or succeeding).
