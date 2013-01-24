@@ -7,17 +7,31 @@ DRKonamiCode
 
 ![](http://grab.by/fbga)
 
-### Adding Konami Code to your Project ###
+### 2 Steps to Add ###
+
+You can add this code in to your App in 2 steps:
 
 1. Drag DRKonamiGestureRecognizer.h and DRKonamiGestureRecognizer.m into your project
-2. Add the gesture recognizer to one of your views using the following code.
+2. Add the gesture recognizer to one of your app's UIViews using the following code.
 
 ```objective-c
-_konamiGestureRecognizer = [[DRKonamiGestureRecognizer alloc] initWithTarget:self action:@selector(_konamiGestureRecognized:)];
-[self.view addGestureRecognizer:self.konamiGestureRecognizer];
+- (void)addKonami
+{
+	konami = [[DRKonamiGestureRecognizer alloc] initWithTarget:self action:@selector(konami:)];
+	[self.view addGestureRecognizer:konami];
+}
+
+- (void)_konamiHappened:(DRKonamiGestureRecognizer *)recognizer
+{
+	NSLog(@"Konami Code Recognized!");
+}
+
 ```
 
-### B+A+Unlock ###
+NOTE: If you are using arc then you have to disable ARC for DRKonamiGestureRecognizer.m. In Xcode4 go to your project file, then "Build Phases" then "Compile Sources" then add the compiler flag "-fno-objc-arc" to DRKonamiCodeGestureRecognizer.m.
+
+
+### B+A+Unlock (OPTIONAL) ###
 
 Optionally, you can require the user to enter B+A+Enter in order for the gesture to be recognized. You will need to implement the DRKonamiGestureProtocol which has required methods that let your UI respond to the request for the A, B, or Enter action. If you are not using the B+A+Enter feature than you do not need to set the recognizer's delegate.
 
@@ -25,10 +39,15 @@ Optionally, you can require the user to enter B+A+Enter in order for the gesture
 ```objective-c
 - (void)addKonami
 {
-	_konamiGestureRecognizer = [[DRKonamiGestureRecognizer alloc] initWithTarget:self action:@selector(_konamiGestureRecognized:)];
-	[self.konamiGestureRecognizer setKonamiDelegate:self];
-	[self.konamiGestureRecognizer setRequiresABEnterToUnlock:YES];
-	[self.view addGestureRecognizer:self.konamiGestureRecognizer];
+	konami = [[DRKonamiGestureRecognizer alloc] initWithTarget:self action:@selector(_konamiHappened:)];
+	[konami setKonamiDelegate:self];
+	[konami setRequiresABEnterToUnlock:YES];
+	[self.view addGestureRecognizer:konami];
+}
+
+- (void)_konamiHappened:(DRKonamiGestureRecognizer *)recognizer
+{
+	NSLog(@"Konami Code Recognized!");
 }
 
 #pragma mark -
