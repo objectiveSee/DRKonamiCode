@@ -17,7 +17,7 @@ You can add this code in to your App in 2 steps:
 ```objective-c
 - (void)addKonami
 {
-	konami = [[DRKonamiGestureRecognizer alloc] initWithTarget:self action:@selector(konami:)];
+	konami = [[DRKonamiGestureRecognizer alloc] initWithTarget:self action:@selector(_konamiHappened:)];
 	[self.view addGestureRecognizer:konami];
 }
 
