@@ -38,7 +38,7 @@ If you are using ARC then there is a 3rd step. You need to to disable ARC for DR
 ### TIPS ###
 
 * TIP 1: NSLog() statements are disabled inside of DRKonamiGestureRecognizer.m. You can enable them at the top of the file and then the console will print the konami state.
-* TIP 2: Practice actually doing the konami gesture with the sample app. Some people have a hard time figuring out who to actually get it going.
+* TIP 2: Practice actually doing the konami gesture with the sample app. Some people have a hard time figuring out how to actually get it going.
 
 ### B+A+Unlock (OPTIONAL) ###
 
