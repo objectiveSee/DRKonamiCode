@@ -7,12 +7,15 @@ DRKonamiCode
 
 ![](http://grab.by/fbga)
 
-### 2 Steps to Add ###
+### Add it to your project in 2 Steps! ###
 
-You can add this code in to your App in 2 steps:
+You can add this code in to your App in just two short steps:
 
 1. Drag DRKonamiGestureRecognizer.h and DRKonamiGestureRecognizer.m into your project
 2. Add the gesture recognizer to one of your app's UIViews using the following code.
+
+TIP 1: Practice actually doing the konami gesture with the sample app. Some people have a hard time figuring out who to actually get it going.
+TIP 2: DRKonamiGestureRecognizer.m has NSLog() statements disabled by default. You can enable them at the top of the file.
 
 ```objective-c
 - (void)addKonami
