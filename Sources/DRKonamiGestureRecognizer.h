@@ -6,12 +6,22 @@
 //
 
 /**
+ DRKonamiGestureProtocol is optional!
+ 
  The Konami Gesture protocol implements communication between the gesture recognizer and the delegate when the A+B+Enter action is required to complete the gesture. If the A+B+Enter sequence is not used then none of the protocol methods are required.
  */
 @class DRKonamiGestureRecognizer;
 @protocol DRKonamiGestureProtocol <NSObject>
 @required
+
+/**
+ Informs the delegate that the gesture recognizer has reached the point where the B+A+Enter sequence is requied to complete the gesture. This is when your code would add UI on the screen to represent the B+A+Enter options.
+ */
 - (void)DRKonamiGestureRecognizerNeedsABEnterSequence:(DRKonamiGestureRecognizer*)gesture;
+
+/**
+ Informs the delegate that the gesture recognizer no longers requires the B+A+Enter sequence. This will happen either because the sequence has succeeded or failed. This is where you can remove the B+A+Enter options from the screen.
+ */
 - (void)DRKonamiGestureRecognizer:(DRKonamiGestureRecognizer*)gesture didFinishNeedingABEnterSequenceWithError:(BOOL)error;
 @end
 

@@ -6,99 +6,36 @@
 //
 
 #import "DRKonamiGestureRecognizer.h"
-#import <UIKit/UIGestureRecognizerSubclass.h>
+#import <UIKit/UIGestureRecognizerSubclass.h>   // required for subclassing UIGestureRecognizer
+
+///////////////////////////////////////////////////////////////
 
 // Line below disables logging if uncommented
 #define NSLog(...);
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-void getCheckValuesAfterTouchesEnded(DRKonamiGestureState konamiState, BOOL* pCheckXLeft, BOOL* pCheckXRight, BOOL* pCheckYUp, BOOL* pCheckYDown);
-void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, BOOL* pCheckY);
-
-void getCheckValuesAfterTouchesEnded(DRKonamiGestureState konamiState, BOOL* pCheckXLeft, BOOL* pCheckXRight, BOOL* pCheckYUp, BOOL* pCheckYDown)
-{
-    switch (konamiState)
-    {
-        case DRKonamiGestureStateBegan:
-        case DRKonamiGestureStateUp1:
-        case DRKonamiGestureStateUp2:
-            *pCheckYUp = YES;
-            break;
-        case DRKonamiGestureStateDown1:
-        case DRKonamiGestureStateDown2:
-            *pCheckYDown = YES;
-            break;
-            
-        case     DRKonamiGestureStateLeft1:
-        case     DRKonamiGestureStateLeft2:
-            *pCheckXLeft = YES;
-            break;
-            
-        case     DRKonamiGestureStateRight1:
-        case     DRKonamiGestureStateRight2:
-            *pCheckXRight = YES;
-            break;
-            
-        case     DRKonamiGestureStateB:
-        case    DRKonamiGestureStateA:
-            break;
-            
-        case DRKonamiGestureStateRecognized:
-        case DRKonamiGestureStateNone:
-        default:
-            NSLog(@"unexpected gesture state %d (in %s)", konamiState, __FUNCTION__);
-            break;
-            
-    }
-}
-
-void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, BOOL* pCheckY)
-{
-    switch (konamiState)
-    {
-        case DRKonamiGestureStateBegan:
-        case DRKonamiGestureStateUp1:
-        case DRKonamiGestureStateUp2:
-        case DRKonamiGestureStateDown1:
-        case DRKonamiGestureStateDown2:
-            *pCheckX = YES;
-            break;
-            
-        case     DRKonamiGestureStateLeft1:
-        case     DRKonamiGestureStateRight1:
-        case     DRKonamiGestureStateLeft2:
-        case     DRKonamiGestureStateRight2:
-            *pCheckY = YES;
-            break;
-            
-        case     DRKonamiGestureStateB:
-        case    DRKonamiGestureStateA:
-            break;
-            
-        case DRKonamiGestureStateRecognized:
-        case DRKonamiGestureStateNone:
-        default:
-            NSLog(@"unexpected gesture state %d (in %s)", konamiState, __FUNCTION__);
-            break;
-            
-    }
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
+// Constant Declarations
 static const CGFloat kKonamiSwipeDistanceTolerance = 50.0f;     // Max tolerence in direction perpendicular to expected swipe state
 static const CGFloat kKonamiSwipeDistanceMin = 50.0f;           // Min distance to detect a swipe gesture
 static const NSTimeInterval kKonamiGestureMaxTimeBetweenGestures = 1.0f; // The max time allowed between swipe gestures.
 static const NSTimeInterval kKonamiGestureMaxTimeDuringGesture = 1.0f; // The max time allowed during swipe gestures.
+
+///////////////////////////////////////////////////////////////
+
+// Some helper functions
+void getCheckValuesAfterTouchesEnded(DRKonamiGestureState konamiState, BOOL* pCheckXLeft, BOOL* pCheckXRight, BOOL* pCheckYUp, BOOL* pCheckYDown);
+
+void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, BOOL* pCheckY);
+
+
+///////////////////////////////////////////////////////////////
 
 @interface DRKonamiGestureRecognizer ()
 @property (nonatomic, assign, readwrite) DRKonamiGestureState konamiState;
 @property (nonatomic, retain, readwrite) NSDate* lastGestureDate;
 @property (nonatomic, assign, readwrite) CGPoint lastGestureStartPoint;
 @end
+
+///////////////////////////////////////////////////////////////
 
 @implementation DRKonamiGestureRecognizer
 @synthesize konamiState = _konamiState;
@@ -127,12 +64,13 @@ static const NSTimeInterval kKonamiGestureMaxTimeDuringGesture = 1.0f; // The ma
 
 - (id) init
 {
+    NSLog(@"Invalid initalizer: %s", __FUNCTION__);
     return nil;
 }
 
 - (void) dealloc
 {
-    [_lastGestureDate release];
+    self.lastGestureDate = nil;
     [super dealloc];
 }
 
@@ -146,6 +84,8 @@ static const NSTimeInterval kKonamiGestureMaxTimeDuringGesture = 1.0f; // The ma
 
 - (BOOL)canPreventGestureRecognizer:(UIGestureRecognizer *)preventedGestureRecognizer
 {
+    // basically we don't prevent any other recognizer from being recoginzed.
+    // TODO: Explore the idea of returning YES if self.konamiState != DRKonamiGestureStateNone.
     return NO;
 }
 
@@ -184,13 +124,16 @@ static const NSTimeInterval kKonamiGestureMaxTimeDuringGesture = 1.0f; // The ma
             [self setState:UIGestureRecognizerStateFailed];
             return;
         }        
-        self.lastGestureDate = [NSDate new];
+        self.lastGestureDate = [[NSDate new] autorelease];  // autorelease because it's retained twice (new & in setter)
         UITouch *touch = [touches anyObject];
         UIView *view = [self view];    
         self.lastGestureStartPoint = [touch locationInView:view];
     }
 }
 
+/**
+ Determine whether the gesture is still happening during a swipe event.
+ */
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if ( self.konamiState >= DRKonamiGestureStateRight2 )
@@ -209,9 +152,12 @@ static const NSTimeInterval kKonamiGestureMaxTimeDuringGesture = 1.0f; // The ma
     
     // Check if user has dragged finger too far away from the gesture axis
     BOOL checkY = NO;
-    BOOL checkX = NO;    
+    BOOL checkX = NO;
     getCheckValuesDuringDrag(self.konamiState + 1, &checkX, &checkY);
-    // @todo add timeout on swipe gestures    
+    
+    // TODO add timeout on swipe gestures
+    
+    // Check if the X and/or Y distance of the swipe was so far that the gesture if considered failed
     if (( checkX == YES) || (checkY == YES))
     {
         // Only 1 touch object is possible. 
@@ -246,6 +192,9 @@ static const NSTimeInterval kKonamiGestureMaxTimeDuringGesture = 1.0f; // The ma
     }    
 }
 
+/**
+ At the end of each swipe event determine if the gesture failed or not.
+ */
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if ( self.konamiState >= DRKonamiGestureStateRight2 )
@@ -317,7 +266,7 @@ static const NSTimeInterval kKonamiGestureMaxTimeDuringGesture = 1.0f; // The ma
     }
 
     self.konamiState++;
-    self.lastGestureDate = [NSDate new];
+    self.lastGestureDate = [[NSDate new] autorelease];  // autorelease because it's retained twice (new & by setter)
 
     [self setState:UIGestureRecognizerStateChanged];
     
@@ -407,3 +356,81 @@ static const NSTimeInterval kKonamiGestureMaxTimeDuringGesture = 1.0f; // The ma
 }
 
 @end
+
+#pragma mark -
+#pragma mark C Helper Functiona
+
+/**
+ Determines whether the gesture recognizer needs to check the X and Y touch coordinates depending on the gesture state.
+ */
+void getCheckValuesAfterTouchesEnded(DRKonamiGestureState konamiState, BOOL* pCheckXLeft, BOOL* pCheckXRight, BOOL* pCheckYUp, BOOL* pCheckYDown)
+{
+    switch (konamiState)
+    {
+        case DRKonamiGestureStateBegan:
+        case DRKonamiGestureStateUp1:
+        case DRKonamiGestureStateUp2:
+            *pCheckYUp = YES;
+            break;
+        case DRKonamiGestureStateDown1:
+        case DRKonamiGestureStateDown2:
+            *pCheckYDown = YES;
+            break;
+            
+        case     DRKonamiGestureStateLeft1:
+        case     DRKonamiGestureStateLeft2:
+            *pCheckXLeft = YES;
+            break;
+            
+        case     DRKonamiGestureStateRight1:
+        case     DRKonamiGestureStateRight2:
+            *pCheckXRight = YES;
+            break;
+            
+        case     DRKonamiGestureStateB:
+        case    DRKonamiGestureStateA:
+            break;
+            
+        case DRKonamiGestureStateRecognized:
+        case DRKonamiGestureStateNone:
+        default:
+            NSLog(@"unexpected gesture state %d (in %s)", konamiState, __FUNCTION__);
+            break;
+            
+    }
+}
+
+/**
+ Determines whether the gesture recognizer needs to check the X and Y touch coordinates depending on the gesture state.
+ */
+void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, BOOL* pCheckY)
+{
+    switch (konamiState)
+    {
+        case DRKonamiGestureStateBegan:
+        case DRKonamiGestureStateUp1:
+        case DRKonamiGestureStateUp2:
+        case DRKonamiGestureStateDown1:
+        case DRKonamiGestureStateDown2:
+            *pCheckX = YES;
+            break;
+            
+        case DRKonamiGestureStateLeft1:
+        case DRKonamiGestureStateRight1:
+        case DRKonamiGestureStateLeft2:
+        case DRKonamiGestureStateRight2:
+            *pCheckY = YES;
+            break;
+            
+        case DRKonamiGestureStateB:
+        case DRKonamiGestureStateA:
+            break;
+            
+        case DRKonamiGestureStateRecognized:
+        case DRKonamiGestureStateNone:
+        default:
+            NSLog(@"unexpected gesture state %d (in %s)", konamiState, __FUNCTION__);
+            break;
+    }
+}
+
