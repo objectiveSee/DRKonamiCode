@@ -14,9 +14,6 @@ You can add this code in to your App in just two short steps:
 1. Drag DRKonamiGestureRecognizer.h and DRKonamiGestureRecognizer.m into your project
 2. Add the gesture recognizer to one of your app's UIViews using the following code.
 
-TIP 1: Practice actually doing the konami gesture with the sample app. Some people have a hard time figuring out who to actually get it going.
-TIP 2: DRKonamiGestureRecognizer.m has NSLog() statements disabled by default. You can enable them at the top of the file.
-
 ```objective-c
 - (void)addKonami
 {
@@ -31,8 +28,17 @@ TIP 2: DRKonamiGestureRecognizer.m has NSLog() statements disabled by default. Y
 
 ```
 
-NOTE: If you are using arc then you have to disable ARC for DRKonamiGestureRecognizer.m. In Xcode4 go to your project file, then "Build Phases" then "Compile Sources" then add the compiler flag "-fno-objc-arc" to DRKonamiCodeGestureRecognizer.m.
+### Are you using ARC? ###
 
+If you are using ARC then there is a 3rd step. You need to to disable ARC for DRKonamiGestureRecognizer.m in your own project. In Xcode4 go to your project file, then "Build Phases" then "Compile Sources" then add the compiler flag "-fno-objc-arc" to DRKonamiCodeGestureRecognizer.m.
+
+![](http://grab.by/jnLA)
+
+
+### TIPS ###
+
+* TIP 1: NSLog() statements are disabled inside of DRKonamiGestureRecognizer.m. You can enable them at the top of the file and then the console will print the konami state.
+* TIP 2: Practice actually doing the konami gesture with the sample app. Some people have a hard time figuring out who to actually get it going.
 
 ### B+A+Unlock (OPTIONAL) ###
 
