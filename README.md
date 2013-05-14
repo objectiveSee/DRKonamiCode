@@ -9,6 +9,8 @@ DRKonamiCode
 
 Contact me via Twitter [@topwobble](https://twitter.com/topwobble) 
 
+Now available on [CocoaPods](http://cocoapods.org/)!
+
 ### Add it to your project in 2 Steps! ###
 
 You can add this code in to your App in just two short steps:
