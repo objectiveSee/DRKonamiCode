@@ -32,12 +32,6 @@ You can add this code in to your App in just two short steps:
 
 ```
 
-### Are you using ARC? ###
-
-If you are using ARC then there is a 3rd step. You need to to disable ARC for DRKonamiGestureRecognizer.m in your own project. In Xcode4 go to your project file, then "Build Phases" then "Compile Sources" then add the compiler flag "-fno-objc-arc" to DRKonamiCodeGestureRecognizer.m.
-
-![](http://grab.by/jnLA)
-
 
 ### TIPS ###
 
