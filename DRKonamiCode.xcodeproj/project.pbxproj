@@ -226,6 +226,7 @@
 		3098B2E71504515300F743BD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DRKonamiCode-Prefix.pch";
 				INFOPLIST_FILE = "DRKonamiCode-Info.plist";
@@ -237,6 +238,7 @@
 		3098B2E81504515300F743BD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DRKonamiCode-Prefix.pch";
 				INFOPLIST_FILE = "DRKonamiCode-Info.plist";

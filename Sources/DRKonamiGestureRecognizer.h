@@ -6,7 +6,7 @@
 //
 
 /**
- DRKonamiGestureProtocol is optional!
+ DRKonamiGestureProtocol is optional! If you are using the delegate then you must implement all of the required methods.
  
  The Konami Gesture protocol implements communication between the gesture recognizer and the delegate when the A+B+Enter action is required to complete the gesture. If the A+B+Enter sequence is not used then none of the protocol methods are required.
  */
@@ -53,27 +53,21 @@ typedef enum DRKonamiGestureState
  @todo Reset the state of self.konamiState on gesture fails due to timeout between swipes in sequence.
  */
 @interface DRKonamiGestureRecognizer : UIGestureRecognizer
-{
-    NSDate* _lastGestureDate;
-    CGPoint _lastGestureStartPoint;
-    BOOL _requiresABEnterToUnlock;
-    id<DRKonamiGestureProtocol> _konamiDelegate;
-}
 
 /**
  Indicates whether the konami sequence requires A+B+Enter to finish the sequence. If NO then the sequence is finished successfully after the final RIGHT gesture. Default value is NO.
  */
-@property (nonatomic, assign, readwrite) BOOL requiresABEnterToUnlock;
+@property (nonatomic, readwrite) BOOL requiresABEnterToUnlock;
 
 /**
  The current state of the konami gesture.
  */
-@property (nonatomic, assign, readonly) DRKonamiGestureState konamiState;
+@property (nonatomic, readonly) DRKonamiGestureState konamiState;
 
 /**
  The delegate of the gesture. If the delegate is set then the delegate must conform to DRKonamiGestureRecognizer. The delegate does not need to be used if requiresABEnterToUnlock is set to NO.
  */
-@property (nonatomic, assign, readwrite) id<DRKonamiGestureProtocol> konamiDelegate;
+@property (nonatomic, weak, readwrite) id<DRKonamiGestureProtocol> konamiDelegate;
 
 /**
  Methods used by the delegate (if delegate exists) to specify when the A, B, and Enter actions occur.
