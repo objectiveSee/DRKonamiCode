@@ -13,12 +13,12 @@
     DRKonamiGestureRecognizer* _konamiGestureRecognizer;
 
 @protected
-    UIView* _NESControllerView;
-    UILabel *_statusLabel;
+    UIView* __weak _NESControllerView;
+    UILabel *__weak _statusLabel;
 }
 
-@property (nonatomic, readonly) IBOutlet UIView *NESControllerView;
-@property (nonatomic, readonly) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic, readonly) IBOutlet UIView *NESControllerView;
+@property (weak, nonatomic, readonly) IBOutlet UILabel *statusLabel;
 @property (nonatomic, readonly) DRKonamiGestureRecognizer* konamiGestureRecognizer;
 
 - (IBAction)aButtonWasPressed:(id)sender;

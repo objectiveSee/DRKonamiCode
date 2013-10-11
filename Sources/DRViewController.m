@@ -38,7 +38,6 @@
 - (void)viewDidUnload
 {
     [self.view removeGestureRecognizer:self.konamiGestureRecognizer];
-    [_konamiGestureRecognizer release];
     _konamiGestureRecognizer = nil;
     [super viewDidUnload];
 }
@@ -98,7 +97,6 @@
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Konami!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss",nil];
         [alert show];
-        [alert release];
     }
     else if ( gesture.state == UIGestureRecognizerStateChanged )
     {

@@ -30,19 +30,14 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
 ///////////////////////////////////////////////////////////////
 
 @interface DRKonamiGestureRecognizer ()
-@property (nonatomic, assign, readwrite) DRKonamiGestureState konamiState;
-@property (nonatomic, retain, readwrite) NSDate* lastGestureDate;
-@property (nonatomic, assign, readwrite) CGPoint lastGestureStartPoint;
+@property (nonatomic, readwrite) DRKonamiGestureState konamiState;
+@property (nonatomic, strong, readwrite) NSDate* lastGestureDate;
+@property (nonatomic, readwrite) CGPoint lastGestureStartPoint;
 @end
 
 ///////////////////////////////////////////////////////////////
 
 @implementation DRKonamiGestureRecognizer
-@synthesize konamiState = _konamiState;
-@synthesize lastGestureDate = _lastGestureDate;
-@synthesize lastGestureStartPoint = lastGestureStartPoint;
-@synthesize requiresABEnterToUnlock = _requiresABEnterToUnlock;
-@synthesize konamiDelegate = _konamiDelegate;
 
 #pragma mark -
 #pragma mark Lifecycle
@@ -52,26 +47,13 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
     self = [super initWithTarget:target action:action];
     if ( self != nil )
     {
-        _konamiState = DRKonamiGestureStateNone;
-        _lastGestureDate = [NSDate new];
-        _lastGestureStartPoint = CGPointZero;
-        _requiresABEnterToUnlock = NO;
-        _konamiDelegate = nil;
+        self.konamiState = DRKonamiGestureStateNone;
+        self.lastGestureDate = [NSDate new];
+        self.lastGestureStartPoint = CGPointZero;
+        self.requiresABEnterToUnlock = NO;
         self.cancelsTouchesInView = NO;
     }
     return self;
-}
-
-- (id) init
-{
-    NSLog(@"Invalid initalizer: %s", __FUNCTION__);
-    return nil;
-}
-
-- (void) dealloc
-{
-    self.lastGestureDate = nil;
-    [super dealloc];
 }
 
 #pragma mark -
@@ -124,7 +106,7 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
             [self setState:UIGestureRecognizerStateFailed];
             return;
         }        
-        self.lastGestureDate = [[NSDate new] autorelease];  // autorelease because it's retained twice (new & in setter)
+        self.lastGestureDate = [NSDate new];
         UITouch *touch = [touches anyObject];
         UIView *view = [self view];    
         self.lastGestureStartPoint = [touch locationInView:view];
@@ -266,7 +248,7 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
     }
 
     self.konamiState++;
-    self.lastGestureDate = [[NSDate new] autorelease];  // autorelease because it's retained twice (new & by setter)
+    self.lastGestureDate = [NSDate new];  // autorelease because it's retained twice (new & by setter)
 
     [self setState:UIGestureRecognizerStateChanged];
     
