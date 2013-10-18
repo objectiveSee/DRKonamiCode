@@ -27,7 +27,10 @@ You can add this code in to your App in just two short steps:
 
 - (void)_konamiHappened:(DRKonamiGestureRecognizer *)recognizer
 {
-	NSLog(@"Konami Code Recognized!");
+	// NOTE: Test the state to make sure the recognizer is finished.
+	if ( [recognizer konamiState] == DRKonamiGestureStateRecognized ) {
+		NSLog(@"Konami Code Recognized!");
+	}
 }
 
 ```
