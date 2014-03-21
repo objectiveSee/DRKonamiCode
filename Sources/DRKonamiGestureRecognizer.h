@@ -6,8 +6,7 @@
 //
 
 /**
- DRKonamiGestureProtocol is optional! If you are using the delegate then you must implement all of the required methods.
- 
+ The delegate (DRKonamiGestureProtocol) is optional! If you are using the delegate, however, then you must implement all of the required methods. The delegate is only needed if you wish to include A+B+Enter as the final steps of the Konami sequence.
  The Konami Gesture protocol implements communication between the gesture recognizer and the delegate when the A+B+Enter action is required to complete the gesture. If the A+B+Enter sequence is not used then none of the protocol methods are required.
  */
 @class DRKonamiGestureRecognizer;
@@ -23,12 +22,13 @@
  Informs the delegate that the gesture recognizer no longers requires the B+A+Enter sequence. This will happen either because the sequence has succeeded or failed. This is where you can remove the B+A+Enter options from the screen.
  */
 - (void)DRKonamiGestureRecognizer:(DRKonamiGestureRecognizer*)gesture didFinishNeedingABEnterSequenceWithError:(BOOL)error;
+
 @end
 
 //////////////////////////////////////////////////////////////////////
 
 /**
- Konami code states.
+ Konami code states.  Mostly used internally, but you will need to use 'DRKonamiGestureStateRecognized'.
  */
 typedef enum DRKonamiGestureState
 {
@@ -75,6 +75,11 @@ typedef enum DRKonamiGestureState
 - (void) AButtonAction;
 - (void) BButtonAction;
 - (void) enterButtonAction;
+
+/**
+ Cancels the gesture recognizer from waiting on the A+B+Enter sequence. Also sets the gesture recognizer state to failed.
+ Used by the delegate (if delegate exists).
+ */
 - (void) cancelSequence;
 
 @end
