@@ -9,6 +9,7 @@
 
 @interface DRViewController()
 - (void)_konamiGestureRecognized:(DRKonamiGestureRecognizer*)gesture;
+@property (nonatomic) UILabel *nesLabel;
 @end
 
 #pragma mark -
@@ -29,8 +30,23 @@
     [self.konamiGestureRecognizer setKonamiDelegate:self];
     [self.konamiGestureRecognizer setRequiresABEnterToUnlock:YES];
     [self.view addGestureRecognizer:self.konamiGestureRecognizer];
-
-    [self.NESControllerView setHidden:YES];
+    
+    if ( !self.nesLabel )
+    {
+        UILabel *nesLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.NESControllerView.frame), CGRectGetWidth(self.view.bounds)-20, 66)];
+        nesLabel.text = @"Hit B, then A, then the enter button (right button in middle of NES controller) to finish Konami sequence.";
+        nesLabel.numberOfLines = 0;
+        [nesLabel setFont:[UIFont systemFontOfSize:15]];
+        nesLabel.textAlignment = NSTextAlignmentCenter;
+        [self.view addSubview:nesLabel];
+        nesLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        self.nesLabel = nesLabel;
+    }
+    
+    // initially hidden. Shown when user has completed the Konami sequence up to the A+B+Enter part.
+    self.NESControllerView.alpha = 0;
+    self.NESControllerView.transform = CGAffineTransformMakeScale(.8, .8);
+    self.nesLabel.alpha = 0;
 
     self.statusLabel.text = nil;
 }
@@ -43,16 +59,25 @@
 }
 
 #pragma mark -
-#pragma mark DRKonamiRecognizerDelegate
+#pragma mark DRKonamiGestureProtocol
 
 - (void)DRKonamiGestureRecognizerNeedsABEnterSequence:(DRKonamiGestureRecognizer*)gesture
 {
-    [self.NESControllerView setHidden:NO];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.NESControllerView.alpha = 1;
+        self.NESControllerView.transform = CGAffineTransformIdentity;
+        self.nesLabel.alpha = 1;
+    }];
 }
 
 - (void)DRKonamiGestureRecognizer:(DRKonamiGestureRecognizer*)gesture didFinishNeedingABEnterSequenceWithError:(BOOL)error
 {
-    [self.NESControllerView setHidden:YES];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.NESControllerView.alpha = 0;
+        self.NESControllerView.transform = CGAffineTransformMakeScale(.8, .8);
+        self.nesLabel.alpha = 0;
+    }];
+
 }
 
 #pragma mark -

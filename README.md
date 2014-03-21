@@ -61,7 +61,7 @@ Optionally, you can require the user to enter B+A+Enter in order for the gesture
 }
 
 #pragma mark -
-#pragma mark DRKonamiRecognizerDelegate
+#pragma mark DRKonamiGestureProtocol
 
 - (void)DRKonamiGestureRecognizerNeedsABEnterSequence:(DRKonamiGestureRecognizer*)gesture
 {
