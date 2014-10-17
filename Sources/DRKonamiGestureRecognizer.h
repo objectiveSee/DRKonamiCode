@@ -55,7 +55,7 @@ typedef enum DRKonamiGestureState
 @interface DRKonamiGestureRecognizer : UIGestureRecognizer
 
 /**
- Indicates whether the konami sequence requires A+B+Enter to finish the sequence. If NO then the sequence is finished successfully after the final RIGHT gesture. Default value is NO.
+ Indicates whether the konami sequence requires B+A+Enter to finish the sequence. If NO then the sequence is finished successfully after the final RIGHT gesture. Default value is NO.
  */
 @property (nonatomic, readwrite) BOOL requiresABEnterToUnlock;
 

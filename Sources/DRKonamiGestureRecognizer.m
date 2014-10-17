@@ -94,7 +94,7 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
                 }
             }
         }
-        else if ( self.state == UIGestureRecognizerStatePossible )
+        else if ( self.state == UIGestureRecognizerStatePossible )      // default beginning state.
         {
             NSLog(@"Starting the konami sequence");
             [self setState:UIGestureRecognizerStateBegan];
@@ -102,14 +102,15 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
         }
         else
         {
+            // unexpected case. Handle with failure and return.
             NSLog(@"Invalid UIGestureRecognizerState: %d", self.state);
             [self setState:UIGestureRecognizerStateFailed];
             return;
         }
+        
         self.lastGestureDate = [NSDate new];
         UITouch *touch = [touches anyObject];
-        UIView *view = [self view];
-        self.lastGestureStartPoint = [touch locationInView:view];
+        self.lastGestureStartPoint = [touch locationInView:self.view];
     }
 }
 
@@ -120,6 +121,7 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
 {
     if ( self.konamiState >= DRKonamiGestureStateRight2 )
     {
+        // in this case the touch-based part of the sequence is done. We either have recognized Konami or are waiting on the B+A inputs.
         return;
     }
     
@@ -135,7 +137,7 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
     // Check if user has dragged finger too far away from the gesture axis
     BOOL checkY = NO;
     BOOL checkX = NO;
-    getCheckValuesDuringDrag(self.konamiState + 1, &checkX, &checkY);
+    getCheckValuesDuringDrag(self.konamiState + 1, &checkX, &checkY);   // use the next konami state since we are detecting that one.
     
     // TODO add timeout on swipe gestures
     
@@ -153,6 +155,7 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
             CGFloat xdifference = fabs( currentTouchPoint.x - self.lastGestureStartPoint.x );
             if ( xdifference > kKonamiSwipeDistanceTolerance )
             {
+                // finger moved too far (in the X direction) from the expected vertical swipe.
                 NSLog(@"Cancelling gesture. Xdifference = %2.2f", xdifference);
                 cancelGesture = YES;
             }
@@ -163,6 +166,7 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
             CGFloat ydifference = fabs( currentTouchPoint.y - self.lastGestureStartPoint.y );
             if ( ydifference > kKonamiSwipeDistanceTolerance )
             {
+                // finger moved too far (in the Y direction) from the expected horizontal swipe.
                 NSLog(@"Cancelling gesture. Ydifference = %2.2f", ydifference);
                 cancelGesture = YES;
             }
@@ -181,11 +185,13 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
 {
     if ( self.konamiState >= DRKonamiGestureStateRight2 )
     {
+        // if in DRKonamiGestureStateRight2 or higher than B+A sequence is being waited upon. We no longer are concerned with touch gestures.
         return;
     }
     
     // Perform final check to make sure a tap was not misinterpreted.
-    if ([self state] != UIGestureRecognizerStateChanged) {
+    if ( self.state != UIGestureRecognizerStateChanged ) {
+        
         NSLog(@"Gesture failed. touchesEnded state is not UIGestureRecognizerStateChanged");
         [self setState:UIGestureRecognizerStateFailed];
         return;
@@ -248,12 +254,13 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
     }
     
     self.konamiState++;
-    self.lastGestureDate = [NSDate new];  // autorelease because it's retained twice (new & by setter)
+    self.lastGestureDate = [NSDate new];
     
     [self setState:UIGestureRecognizerStateChanged];
     
     if ( self.konamiState >= DRKonamiGestureStateRight2 )
     {
+        // if we need B+A+Enter to finish, then do so. Else, gesture is success.
         if ( self.requiresABEnterToUnlock == YES )
         {
             if ( self.konamiDelegate == nil )
