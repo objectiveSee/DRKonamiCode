@@ -19,6 +19,7 @@
 
 @property (weak, nonatomic, readonly) IBOutlet UIView *NESControllerView;
 @property (weak, nonatomic, readonly) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic, readonly) IBOutlet UILabel *guideLabel;
 @property (nonatomic, readonly) DRKonamiGestureRecognizer* konamiGestureRecognizer;
 
 - (IBAction)aButtonWasPressed:(id)sender;

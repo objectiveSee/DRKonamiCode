@@ -19,6 +19,10 @@
 @synthesize konamiGestureRecognizer = _konamiGestureRecognizer;
 @synthesize statusLabel = _statusLabel;
 
+
+static NSString * konamiProgressString = @"↑↑↓↓←→←→BA";
+
+
 #pragma mark -
 #pragma mark UIViewController
 
@@ -47,7 +51,7 @@
     self.NESControllerView.alpha = 0;
     self.NESControllerView.transform = CGAffineTransformMakeScale(.8, .8);
     self.nesLabel.alpha = 0;
-
+    
     self.statusLabel.text = nil;
 }
 
@@ -63,21 +67,23 @@
 
 - (void)DRKonamiGestureRecognizerNeedsABEnterSequence:(DRKonamiGestureRecognizer*)gesture
 {
-    [UIView animateWithDuration:0.3 animations:^{
-        self.NESControllerView.alpha = 1;
-        self.NESControllerView.transform = CGAffineTransformIdentity;
-        self.nesLabel.alpha = 1;
-    }];
+    [self setControllerHidden:NO animated:YES];
 }
 
 - (void)DRKonamiGestureRecognizer:(DRKonamiGestureRecognizer*)gesture didFinishNeedingABEnterSequenceWithError:(BOOL)error
 {
-    [UIView animateWithDuration:0.3 animations:^{
-        self.NESControllerView.alpha = 0;
-        self.NESControllerView.transform = CGAffineTransformMakeScale(.8, .8);
-        self.nesLabel.alpha = 0;
-    }];
+    [self setControllerHidden:YES animated:YES];
+}
 
+- (void)setControllerHidden:(BOOL)hidden animated:(BOOL)animated {
+
+    [self OSSafeAnimateWithDuration:animated?.7:0 delay:0 usingSpringWithDamping:.5 initialSpringVelocity:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        
+        self.NESControllerView.alpha = hidden ? 0:1;
+        self.NESControllerView.transform = hidden ? CGAffineTransformMakeScale(.7, .7) : CGAffineTransformIdentity;
+        self.nesLabel.alpha = hidden ? 0:1;
+        
+    } completion:nil];
 }
 
 #pragma mark -
@@ -87,8 +93,10 @@
 {
     NSAssert([sender isKindOfClass:[UISwitch class]] == YES, @"Invalid class.");
     UISwitch *theSwitch = (UISwitch *)sender;
-
+    
     self.konamiGestureRecognizer.requiresABEnterToUnlock = [theSwitch isOn];
+    
+    [self setGuideString];      // call after setting requiresABEnterToUnlock
 }
 
 - (IBAction)aButtonWasPressed:(id)sender
@@ -116,8 +124,6 @@
 
 - (void)_konamiGestureRecognized:(DRKonamiGestureRecognizer*)gesture
 {
-    static NSString* konamiProgressString = @"↑↑↓↓←→←→BA";
-
     if ( gesture.state == UIGestureRecognizerStateRecognized )
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Konami!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss",nil];
@@ -127,7 +133,7 @@
     {
         DRKonamiGestureState konamiState = gesture.konamiState;
         NSInteger indexOfSubString = konamiState - DRKonamiGestureStateUp1 + 1;
-
+        
         if ( indexOfSubString > 0 )
         {
             NSString *progressString = [konamiProgressString substringToIndex:indexOfSubString];
@@ -142,6 +148,26 @@
     {
         self.statusLabel.text = nil;
     }
-}    
+}
+
+- (void)setGuideString
+{
+    BOOL baaaaa = self.konamiGestureRecognizer.requiresABEnterToUnlock;
+    self.guideLabel.text = [konamiProgressString substringToIndex:baaaaa?10:8];
+}
+
+// lets you use dynamics if available
+- (void)OSSafeAnimateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay usingSpringWithDamping:(CGFloat)dampingRatio initialSpringVelocity:(CGFloat)velocity options:(UIViewAnimationOptions)options animations:(void (^)(void))animations completion:(void (^)(BOOL finished))completion NS_AVAILABLE_IOS(6_0)
+{
+    if ( [[UIView class] respondsToSelector:@selector(animateWithDuration:delay:usingSpringWithDamping:initialSpringVelocity:options:animations:completion:)] ) {
+        
+        [UIView animateWithDuration:duration delay:delay usingSpringWithDamping:dampingRatio initialSpringVelocity:velocity options:options animations:animations completion:completion];
+        
+    } else {
+        
+        [UIView animateWithDuration:duration delay:delay options:options animations:animations completion:completion];
+        
+    }
+}
 
 @end
