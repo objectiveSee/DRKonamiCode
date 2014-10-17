@@ -30,7 +30,7 @@
 /**
  Konami code states.  Mostly used internally, but you will need to use 'DRKonamiGestureStateRecognized'.
  */
-typedef enum DRKonamiGestureState
+typedef NS_ENUM(NSInteger, DRKonamiGestureState)
 {
     DRKonamiGestureStateNone = 0,
     DRKonamiGestureStateBegan,
@@ -45,7 +45,7 @@ typedef enum DRKonamiGestureState
     DRKonamiGestureStateB,          // 10
     DRKonamiGestureStateA,          // 11
     DRKonamiGestureStateRecognized  // 12
-} DRKonamiGestureState;
+};
 
 /**
  @class DRKonamiGestureRecognizer
