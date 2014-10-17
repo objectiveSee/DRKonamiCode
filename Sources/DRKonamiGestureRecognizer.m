@@ -74,14 +74,14 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     // Fail when more than 1 finger detected.
-    if ([[event touchesForGestureRecognizer:self] count] > 1) 
+    if ([[event touchesForGestureRecognizer:self] count] > 1)
     {
         [self setState:UIGestureRecognizerStateFailed];
     }
     else
     {
         if ( self.state == UIGestureRecognizerStateChanged )
-        {    
+        {
             // If an existing touch already exists (ie. state is UIGestureRecognizerStateChanged) then see if the pause between gestures took too long. However, if the konami code state has reached DRKonamiGestureStateRight2 then the timeout between gestures no longer applies. DRKonamiGestureRecognizer is either waiting for A+B+Enter or a logic error has occured.
             if ( self.konamiState < DRKonamiGestureStateRight2 )
             {
@@ -105,10 +105,10 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
             NSLog(@"Invalid UIGestureRecognizerState: %d", self.state);
             [self setState:UIGestureRecognizerStateFailed];
             return;
-        }        
+        }
         self.lastGestureDate = [NSDate new];
         UITouch *touch = [touches anyObject];
-        UIView *view = [self view];    
+        UIView *view = [self view];
         self.lastGestureStartPoint = [touch locationInView:view];
     }
 }
@@ -122,14 +122,14 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
     {
         return;
     }
-
+    
     // Check whether the gesture is being completed fast enough
     NSDate* now = [NSDate date];
     if ( [now timeIntervalSinceDate:self.lastGestureDate] > kKonamiGestureMaxTimeDuringGesture )
     {
         NSLog(@"Failed to swipe quick enough!");
         [self setState:UIGestureRecognizerStateFailed];
-        return;        
+        return;
     }
     
     // Check if user has dragged finger too far away from the gesture axis
@@ -142,12 +142,12 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
     // Check if the X and/or Y distance of the swipe was so far that the gesture if considered failed
     if (( checkX == YES) || (checkY == YES))
     {
-        // Only 1 touch object is possible. 
+        // Only 1 touch object is possible.
         BOOL cancelGesture = NO;
         UITouch *touch = [touches anyObject];
-        UIView *view = [self view];    
-        CGPoint currentTouchPoint = [touch locationInView:view];     
-
+        UIView *view = [self view];
+        CGPoint currentTouchPoint = [touch locationInView:view];
+        
         if ( checkX == YES )
         {
             CGFloat xdifference = fabs( currentTouchPoint.x - self.lastGestureStartPoint.x );
@@ -171,7 +171,7 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
         {
             [self setState:UIGestureRecognizerStateFailed]; // Use cancelled or failed state?
         }
-    }    
+    }
 }
 
 /**
@@ -183,7 +183,7 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
     {
         return;
     }
-
+    
     // Perform final check to make sure a tap was not misinterpreted.
     if ([self state] != UIGestureRecognizerStateChanged) {
         NSLog(@"Gesture failed. touchesEnded state is not UIGestureRecognizerStateChanged");
@@ -194,16 +194,16 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
     // Check whether the correct gesture happened
     BOOL checkYUp = NO;
     BOOL checkYDown = NO;
-    BOOL checkXLeft = NO;    
-    BOOL checkXRight = NO;    
+    BOOL checkXLeft = NO;
+    BOOL checkXRight = NO;
     getCheckValuesAfterTouchesEnded(self.konamiState + 1, &checkXLeft, &checkXRight, &checkYUp, &checkYDown);
     if ( checkXLeft || checkXRight || checkYDown || checkYUp )
     {
-        // Only 1 touch object is possible. 
+        // Only 1 touch object is possible.
         BOOL cancelGesture = NO;
         UITouch *touch = [touches anyObject];
-        UIView *view = [self view];    
-        CGPoint currentTouchPoint = [touch locationInView:view]; 
+        UIView *view = [self view];
+        CGPoint currentTouchPoint = [touch locationInView:view];
         if ( checkXLeft || checkXRight )
         {
             CGFloat xdifference = currentTouchPoint.x - self.lastGestureStartPoint.x;
@@ -219,7 +219,7 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
             {
                 NSLog(@"Konami X failed!. xdifference = %2.2f", xdifference);
                 cancelGesture = YES;
-            }            
+            }
         }
         else
         {
@@ -237,7 +237,7 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
             {
                 NSLog(@"Konami Y failed!. ydifference = %2.2f", ydifference);
                 cancelGesture = YES;
-            } 
+            }
         }
         if ( cancelGesture == YES )
         {
@@ -246,10 +246,10 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
             return;
         }
     }
-
+    
     self.konamiState++;
     self.lastGestureDate = [NSDate new];  // autorelease because it's retained twice (new & by setter)
-
+    
     [self setState:UIGestureRecognizerStateChanged];
     
     if ( self.konamiState >= DRKonamiGestureStateRight2 )
@@ -269,7 +269,7 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
             // Gesture complete!
             NSLog(@"Konami Gesture recognized!");
             self.konamiState = DRKonamiGestureStateRecognized;
-            [self setState:UIGestureRecognizerStateRecognized];        
+            [self setState:UIGestureRecognizerStateRecognized];
         }
     }
 }
@@ -279,7 +279,7 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
     [self setState:UIGestureRecognizerStateFailed];
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark Button actions
 
 - (void) AButtonAction
@@ -310,7 +310,7 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
         NSLog(@"Konami gesture failed due to pressing B-Button at incorrect time. State was %d", self.konamiState);
         [self setState:UIGestureRecognizerStateFailed];
         [self.konamiDelegate DRKonamiGestureRecognizer:self didFinishNeedingABEnterSequenceWithError:YES];
-    }    
+    }
 }
 
 - (void) enterButtonAction
@@ -327,7 +327,7 @@ void getCheckValuesDuringDrag(DRKonamiGestureState konamiState, BOOL* pCheckX, B
         NSLog(@"Konami gesture failed due to pressing Enter-Button at incorrect time. State was %d", self.konamiState);
         [self setState:UIGestureRecognizerStateFailed];
         [self.konamiDelegate DRKonamiGestureRecognizer:self didFinishNeedingABEnterSequenceWithError:YES];
-    }    
+    }
 }
 
 - (void) cancelSequence
