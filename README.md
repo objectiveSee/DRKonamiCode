@@ -6,7 +6,7 @@ DRKonamiCode
 
 [Konami code](http://en.wikipedia.org/wiki/Konami_Code) gesture recognizer for iOS. The recognizer is a subclass of UIGestureRecognizer has can be used in the same way as any other recognizer. Swipe gestures correspond to the Up/Down/Left/Right parts of the sequence. An optional feature allows you to implement a custom B+A+Enter action.
 
-Contact me via Twitter [@topwobble](https://twitter.com/topwobble) 
+Contact me via Github issue or comment.
 
 ### Installation with CocoaPods
 
